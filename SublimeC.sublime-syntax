@@ -24,7 +24,10 @@ variables:
   compiler_directive: 'inline|restrict|__restrict__|__restrict'
   modifiers: '{{storage_classes}}|{{type_qualifier}}|{{compiler_directive}}'
   non_func_keywords: 'if|for|switch|while|decltype|sizeof|__declspec|__attribute__'
-  intconst_suffix: '(([uU]?(l{0,2}|L{0,2})?)|((l{0,2}|L{0,2})?[uU]?))'
+  int_suffix: '([uU]?(l{0,2}|L{0,2})?)|((l{0,2}|L{0,2})?[uU]?)'
+  float_suffix: '[fFlL]?'
+  float_decexp: '[eE](\+|-)?[0-9]+'
+  float_hexexp: '[pP](\+|-)?[0-9]+'
 
 contexts:
   main:
@@ -162,9 +165,17 @@ contexts:
       scope: support.type.othersys.c
 
   numbers:
-    - match: '\b((0(x|X)[0-9a-fA-F]*(\.[0-9a-fA-F]+p-?\d+)?)|(([0-9]+\.?[0-9]*)|(\.[0-9]+))((e|E)(\+|-)?[0-9]+)?)([fF]|(l{1,2}|L{1,2})[uU]?|[uU](l{0,2}|L{0,2}))?\b'
+    - match: '\b((\d*\.?\d*{{float_decexp}})|(\d*\.\d*({{float_decexp}})?)){{float_suffix}}\b' # decimal float literal
       scope: constant.numeric.c
-    - match: '\b0b[01]+{{intconst_suffix}}\b'
+    - match: '\b0[xX][0-9a-fA-F]+\.?[0-9a-fA-F]*{{float_hexexp}}{{float_suffix}}\b' # hex float literal
+      scope: constant.numeric.c
+    - match: '\b0b[01]+{{int_suffix}}\b' # binary literal
+      scope: constant.numeric.c
+    - match: '\b0[0-7]+{{int_suffix}}\b' # octal literal
+      scope: constant.numeric.c
+    - match: '\b0[xX][0-9a-fA-F]+{{int_suffix}}\b' # hex literal
+      scope: constant.numeric.c
+    - match: '\b(0|[1-9]+\d*){{int_suffix}}\b' # decimal literal
       scope: constant.numeric.c
 
   operators:

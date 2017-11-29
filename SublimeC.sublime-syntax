@@ -24,7 +24,7 @@ variables:
   compiler_directive: 'inline|restrict|__restrict__|__restrict'
   modifiers: '{{storage_classes}}|{{type_qualifier}}|{{compiler_directive}}'
   non_func_keywords: 'if|for|switch|while|decltype|sizeof|__declspec|__attribute__'
-  int_suffix: '([uU]?(l{0,2}|L{0,2})?)|((l{0,2}|L{0,2})?[uU]?)'
+  int_suffix: '(([uU]?(l{0,2}|L{0,2})?)|((l{0,2}|L{0,2})?[uU]?))?'
   float_suffix: '[fFlL]?'
   float_decexp: '[eE](\+|-)?[0-9]+'
   float_hexexp: '[pP](\+|-)?[0-9]+'
@@ -175,7 +175,7 @@ contexts:
       scope: constant.numeric.c
     - match: '\b0[xX][0-9a-fA-F]+{{int_suffix}}\b' # hex literal
       scope: constant.numeric.c
-    - match: '\b(0|[1-9]+\d*){{int_suffix}}\b' # decimal literal
+    - match: '\b(0|([1-9]+\d*)){{int_suffix}}\b' # decimal literal
       scope: constant.numeric.c
 
   operators:

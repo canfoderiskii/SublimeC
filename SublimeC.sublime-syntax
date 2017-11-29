@@ -118,7 +118,7 @@ contexts:
   keywords:
     - match: \b({{control_keywords}})\b
       scope: keyword.control.c
-    - match: \bsizeof\b
+    - match: \b(sizeof|typeof|__typeof__)\b
       scope: keyword.operator.word.c
 
   modifiers:

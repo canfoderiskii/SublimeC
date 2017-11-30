@@ -26,8 +26,8 @@ variables:
   non_func_keywords: 'if|for|switch|while|decltype|sizeof|__declspec|__attribute__'
   int_suffix: '(([uU]?(l{0,2}|L{0,2})?)|((l{0,2}|L{0,2})?[uU]?))?'
   float_suffix: '[fFlL]?'
-  float_decexp: '[eE](\+|-)?[0-9]+'
-  float_hexexp: '[pP](\+|-)?[0-9]+'
+  float_decexp: '[eE][+-]?[0-9]+'
+  float_hexexp: '[pP][+-]?[0-9]+'
 
 contexts:
   main:
